@@ -1,0 +1,19 @@
+---
+language: java
+
+jdk:
+  - openjdk8
+
+before_install:
+  - wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar
+  - java -jar ./BuildTools.jar
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: $GH_TOKEN
+  file_glob: true
+  file:
+    - "./spigot*.jar"
+  on:
+    tags: true
